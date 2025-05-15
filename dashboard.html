@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piezo-Pulse | Energy Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+</head>
+<body >
+  <!-- Navbar identique à votre site -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="navbar-brand">
+      <img src="logo.png" alt="Piezo Pulse Logo" class="navbar-logo">
+      <span class="navbar-brand-name">Piezo-Pulse</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="about.html">Technology</a>
+      <a href="team.html">Our Team</a>
+      <a href="contact.html">Contact</a>
+      <button class="nav-button" onclick="location.href='dashboard.html'">Dashboard</button>
+    </div>
+    <div class="menu-toggle" id="menuToggle">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 12h18M3 6h18M3 18h18"></path>
+      </svg>
+    </div>
+  </nav>
+
+  <div class="dashboard-container">
+    <header class="dashboard-header">
+      <div class="header-left">
+        <h1><i class="fas fa-charging-station"></i> Piezo-Pulse Energy Dashboard</h1>
+        <p class="subtitle">Real-time monitoring of piezoelectric energy generation</p>
+      </div>
+      <div class="connection-status">
+        <div id="connectionBadge" class="status-badge disconnected">
+          <i class="fas fa-unlink"></i> Piezo-Pulse Not Connected
+        </div>
+        <div class="last-update">
+          <i class="far fa-clock"></i> <span id="lastUpdate">Never connected</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="connection-alert">
+      <div class="alert-content">
+        <i class="fas fa-exclamation-triangle"></i>
+        <div>
+          <h3>Device Disconnected</h3>
+          <p>Please check your ESP32 connection and power supply</p>
+        </div>
+        <button id="retryBtn" class="retry-btn">
+          <i class="fas fa-sync-alt"></i> Retry Connection
+        </button>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+      <!-- Carte Graphique -->
+      <div class="card main-chart">
+        <div class="card-header">
+          <h2><i class="fas fa-bolt"></i> Energy Generation</h2>
+          <div class="chart-actions">
+            <div class="time-selector">
+              <button class="time-btn active" data-range="1h">1H</button>
+              <button class="time-btn" data-range="6h">6H</button>
+              <button class="time-btn" data-range="24h">24H</button>
+            </div>
+            <button class="chart-btn"><i class="fas fa-expand"></i></button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="chart-container">
+            <canvas id="energyChart"></canvas>
+            <div id="noDataOverlay" class="no-data-overlay">
+              <i class="fas fa-unlink"></i>
+              <h3>No Data Available</h3>
+              <p>Connect your Piezo-Pulse device to view real-time analytics</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carte Statistiques -->
+      <div class="card stats-card">
+        <div class="card-header">
+          <h2><i class="fas fa-chart-line"></i> Performance Metrics</h2>
+        </div>
+        <div class="card-body">
+          <div class="metric">
+            <div class="metric-icon"><i class="fas fa-bolt"></i></div>
+            <div class="metric-value" id="currentPower">--.--</div>
+            <div class="metric-label">Current Power</div>
+            <div class="metric-unit">Watts</div>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric">
+            <div class="metric-icon"><i class="fas fa-battery-three-quarters"></i></div>
+            <div class="metric-value" id="todayEnergy">--.--</div>
+            <div class="metric-label">Today's Energy</div>
+            <div class="metric-unit">Watt-hours</div>
+          </div>
+          <div class="metric-divider"></div>
+          <div class="metric">
+            <div class="metric-icon"><i class="fas fa-tachometer-alt"></i></div>
+            <div class="metric-value" id="efficiency">--%</div>
+            <div class="metric-label">Efficiency</div>
+            <div class="metric-trend negative"><i class="fas fa-arrow-down"></i> --%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carte Capteurs -->
+      <div class="card sensors-card">
+        <div class="card-header">
+          <h2><i class="fas fa-microchip"></i> Sensor Network</h2>
+          <div class="sensor-status">
+            <span class="sensor-count">0/3</span>
+            <span class="status-dot offline"></span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="sensor-grid">
+            <div class="sensor-item offline">
+              <div class="sensor-icon"><i class="fas fa-bolt"></i></div>
+              <div class="sensor-info">
+                <div class="sensor-name">Piezo Array 1</div>
+                <div class="sensor-value">--.-- V</div>
+              </div>
+            </div>
+            <!-- Ajoutez d'autres capteurs -->
+          </div>
+          <div class="sensor-actions">
+            <button class="sensor-btn"><i class="fas fa-sliders-h"></i> Calibrate</button>
+            <button class="sensor-btn"><i class="fas fa-history"></i> Diagnostics</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>

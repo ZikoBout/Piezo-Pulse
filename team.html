@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Team | Piezo Pulse</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png"  href="logo.png">
+  <style>
+    /* Styles spécifiques à la page Team */
+    .team-hero {
+      height: 60vh;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 2rem;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    }
+
+    .team-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 75% 30%, rgba(0,208,132,0.15) 0%, transparent 50%);
+      z-index: 1;
+    }
+
+    .team-hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.25;
+      z-index: 0;
+    }
+
+    .team-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+    }
+
+    .team-hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, #00ffcc, #00d4ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .team-hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      max-width: 700px;
+    }
+
+    /* Team Members Section */
+    .team-members-section {
+      padding: 5rem 2rem;
+      background: rgba(15, 32, 39, 0.9);
+    }
+
+    .team-header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 3rem;
+    }
+
+    .team-header h2 {
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, #00ffcc, #00d4ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .team-header p {
+      color: rgba(255,255,255,0.8);
+      font-size: 1.1rem;
+    }
+
+    /* Detailed Member Cards */
+    .member-detail {
+      display: flex;
+      flex-direction: column;
+      max-width: 1200px;
+      margin: 0 auto 4rem;
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.4s ease;
+    }
+
+    .member-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(0,208,132,0.1) 0%, rgba(15, 32, 39, 0.7) 100%);
+    }
+
+    .member-photo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #00d084;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .member-info {
+      padding: 2rem;
+    }
+
+    .member-name {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: white;
+    }
+
+    .member-role {
+      color: #00d4ff;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+    }
+
+    .member-bio {
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+
+    .member-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .skill-tag {
+      background: rgba(0,208,132,0.1);
+      color: #00ffcc;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      border: 1px solid rgba(0,208,132,0.3);
+    }
+
+    .member-social {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .member-social a {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .member-social a:hover {
+      background: #00d084;
+      transform: translateY(-3px);
+    }
+
+    /* Responsive Design */
+    @media (min-width: 768px) {
+      .member-detail {
+        flex-direction: row;
+      }
+      
+      .member-header {
+        flex: 0 0 300px;
+        justify-content: center;
+      }
+      
+      .member-info {
+        flex: 1;
+      }
+    }
+
+    /* Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .member-detail {
+      animation: fadeInUp 0.8s ease-out forwards;
+      opacity: 0;
+    }
+
+    .member-detail:nth-child(1) { animation-delay: 0.1s; }
+    .member-detail:nth-child(2) { animation-delay: 0.3s; }
+    .member-detail:nth-child(3) { animation-delay: 0.5s; }
+    .member-detail:nth-child(4) { animation-delay: 0.7s; }
+    .member-detail:nth-child(5) { animation-delay: 0.9s; }
+    .member-detail:nth-child(6) { animation-delay: 1.1s; }
+
+    /* Team Logo Styles */
+.team-logo-container {
+  text-align: center;
+  margin-bottom: -3rem; /* Ajustez cette valeur selon l'espacement désiré */
+  position: relative;
+  z-index: 3;
+}
+
+.team-logo {
+  height: 200px; /* Ajustez cette valeur pour changer la taille du logo */
+  width: auto;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  transition: all 0.3s ease;
+  /* Applique le même dégradé que le texte */
+  mask: linear-gradient(90deg, #00ffcc, #00d4ff);
+  -webkit-mask: linear-gradient(90deg, #00ffcc, #00d4ff);
+}
+
+/* Effet hover optionnel */
+.team-logo:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 8px rgba(0,208,132,0.4));
+}
+
+/* Ajustement de l'espacement du contenu */
+.team-hero-content {
+  margin-top: 0.5rem;
+}
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="navbar-brand">
+      <img src="logo.png" alt="Piezo Pulse Logo" class="navbar-logo">
+      <span class="navbar-brand-name">Piezo-Pulse</span>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="about.html">Technology</a>
+      <a href="team.html">Our Team</a>
+      <a href="contact.html">Contact</a>
+      <button class="nav-button" onclick="location.href='dashboard.html'">Start</button>
+    </div>
+    <div class="menu-toggle" id="menuToggle">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 12h18M3 6h18M3 18h18"></path>
+      </svg>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <!-- Hero Section -->
+    <header class="team-hero">
+    <video autoplay muted loop>
+      <source src="videos/tech-background.mp4" type="video/mp4">
+    </video>
+    <div class="team-logo-container">
+      <img src="team_gradient.png" alt="Team Logo" class="team-logo">
+    </div>
+    <div class="team-hero-content">
+      <h1>Meet Our Team</h1>
+      <p>The brilliant minds and passionate engineers behind Piezo Pulse innovation</p>
+    </div>
+    </header>
+
+  <!-- Team Members Section -->
+  <section class="team-members-section">
+    <div class="team-header">
+      <h2>Our Expert Team</h2>
+      <p>We bring together diverse expertise to create groundbreaking energy solutions</p>
+    </div>
+
+    <!-- Member 1 -->
+    <div class="member-detail">
+      <div class="member-header">
+        <img src="zakaria.png" alt="Zakaria Boutoumat" class="member-photo">
+        <h3 class="member-name">Zakaria Boutoumat</h3>
+        <p class="member-role">IT Specialist</p>
+        <div class="member-social">
+          <a href="https://www.linkedin.com/in/zakaria-boutoumat-763a7a225/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="member-info">
+        <p class="member-bio">
+          Zakaria is a Computer Science student at the École Polytechnique d’Agadir. In the Piezo-Pulse project, he is responsible for the web design, website architecture, and database development, ensuring a solid and functional foundation for the system's digital platform
+        </p>
+        <div class="member-skills">
+          <span class="skill-tag">HTML/CSS/JS</span>
+          <span class="skill-tag">Networking</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Linux</span>
+          <span class="skill-tag">SSI</span>
+        </div>
+        <p class="member-bio">
+          Previously, he worked on academic projects involving network simulation and IT infrastructure monitoring, gaining hands-on experience with Linux, VMware, Centreon, and GLPI tools, and Firewalls like PfSense.
+        </p>
+      </div>
+    </div>
+
+    <!-- Member 2 -->
+    <div class="member-detail">
+      <div class="member-header">
+        <img src="Asmae.png" alt="Asmae Ait Lahcen" class="member-photo">
+        <h3 class="member-name">Asmae Ait Lahcen</h3>
+        <p class="member-role">Product Design Specialist</p>
+        <div class="member-social">
+          <a href="https://www.linkedin.com/in/asmae-ait-lahcen-a93563333/?originalSubdomain=ma" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="member-info">
+        <p class="member-bio">
+          Asmae is a fourth-year industrial engineering student at École Polytechnique, with a strong interest in product design and user experience. Within the Piezo Pulse project, she played a key role in the overall design of the system, focusing on the visual, structural, and ergonomic aspects of the modules.
+        </p>
+        <div class="member-skills">
+          <span class="skill-tag">Product & Industrial Design</span>
+          <span class="skill-tag">CAD Modeling (SolidWorks, AutoCAD)</span>
+          <span class="skill-tag">Innovation & Creative Thinking</span>
+          <span class="skill-tag">Team Collaboration</span>
+        </div>
+        <p class="member-bio">
+          Her work ensured that the solution was not only technically sound but also visually appealing and suitable for real-world integration in urban and commercial environments. Her ability to balance creativity with practical constraints made her a central contributor to the success of the design phase.
+        </p>
+      </div>
+    </div>
+
+    <!-- Member 3 -->
+    <div class="member-detail">
+      <div class="member-header">
+        <img src="pewpew.png" alt="Youness Marzouk" class="member-photo">
+        <h3 class="member-name">Youness Marzouk</h3>
+        <p class="member-role">Monitoring Services</p>
+        <div class="member-social">
+          <a href="https://www.linkedin.com/in/youness-mherte9-168039241/" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="member-info">
+        <p class="member-bio">
+          Youness is a Computer Science student at the École Polytechnique d’Agadir. In the Piezo-Pulse project, he is in charge of data visualization, creating graphs and monitoring dashboards to track real-time energy performance and system efficiency.  
+        </p>
+        <div class="member-skills">
+          <span class="skill-tag">Dashboard Development</span>
+          <span class="skill-tag">HTML/CSS</span>
+          <span class="skill-tag">Data Visualization</span>
+          <span class="skill-tag">Flutter</span>
+        </div>
+        <p class="member-bio">
+          He also contributes to the web design and is leading the development of the mobile application, ensuring users have clear and responsive access to the platform across all devices.  
+        </p>
+      </div>
+    </div>
+
+    <!-- Member 4 -->
+    <div class="member-detail">
+      <div class="member-header">
+        <img src="rimmmmmmmm.png" alt="Rim El Alaoui Ismaili" class="member-photo">
+        <h3 class="member-name">Rim El Alaoui Ismaili</h3>
+        <p class="member-role">Module Design Lead</p>
+        <div class="member-social">
+          <a href="https://www.linkedin.com/in/rim-elalaoui-ismaili-50a288243/?originalSubdomain=ma" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="member-info">
+        <p class="member-bio">
+          With a background in industrial engineering, Rim Elalaoui Ismaili brings a user-focused mindset and a strong emphasis on efficiency to the Piezo Pulse team. She leads the design and optimization of the modules, ensuring that the technology integrates smoothly into urban and commercial environments.
+        </p>
+        <div class="member-skills">
+          <span class="skill-tag">Industrial Systems Engineering</span>
+          <span class="skill-tag">Prototyping & Testing</span>
+          <span class="skill-tag">Urban Infrastructure Integration</span>
+        </div>
+        <p class="member-bio">
+          Rim’s work focuses on making the system practical, reliable, and easy to implement, while continuously improving its performance to meet real-world needs.
+        </p>
+      </div>
+    </div>
+
+    <!-- Member 5 -->
+    <div class="member-detail">
+      <div class="member-header">
+        <img src="Imad.png" alt="Imad Lebsim" class="member-photo">
+        <h3 class="member-name">Imad Lebsim</h3>
+        <p class="member-role">Circuit Design Engineer</p>
+        <div class="member-social">
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="member-info">
+        <p class="member-bio">
+          With a solid background in electrical engineering, Imad brings technical precision and a problem-solving mindset to the Piezo Pulse team. He is in charge of designing, developing, and refining the electronic circuits that drive the system  
+        </p>
+        <div class="member-skills">
+          <span class="skill-tag">Circuit Design & Optimization</span>
+          <span class="skill-tag">Power Electronics</span>
+          <span class="skill-tag">Energy Harvesting Systems</span>
+        </div>
+        <p class="member-bio">
+          He leads the design and implementation of the electronic circuits powering the modules, ensuring stable energy flow and high-efficiency energy harvesting in both urban and commercial applications
+        </p>
+      </div>
+    </div>
+
+    <!-- Member 6 -->
+    <div class="member-detail">
+      <div class="member-header">
+        <img src="fatima.png" alt="Osseili Fatima" class="member-photo">
+        <h3 class="member-name">Osseili Fatima</h3>
+        <p class="member-role">Project Manager</p>
+        <div class="member-social">
+          <a href="https://www.linkedin.com/in/fatima-osseili-324a90330/?originalSubdomain=ma" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="member-info">
+        <p class="member-bio">
+          Currently in her fourth year of industrial engineering at École Polytechnique, Fatima brings strategic vision and strong leadership to the Piezo Pulse team.
+        </p>
+        <div class="member-skills">
+          <span class="skill-tag">Project Management</span>
+          <span class="skill-tag">Team Leadership</span>
+          <span class="skill-tag">Risk Management</span>
+          <span class="skill-tag">Budget Planning</span>
+        </div>
+        <p class="member-bio">
+          As the project leader, she coordinates the team’s efforts, manages timelines, and ensures alignment between technical development and project objectives. Her organizational mindset and problem-solving skills drive the team forward from concept to implementation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <!-- Colonne Logo + Adresse -->
+      <div class="footer-col">
+        <img src="logo.png" alt="Piezo Pulse" class="footer-logo">
+        <img src="Untitled design (4).png" alt="École Polytechnique d'Agadir" class="school-logo">
+        <address>
+          École Polytechnique d'Agadir<br>
+          Quartier Tilila, Agadir 80000<br>
+          Maroc
+        </address>
+      </div>
+
+      <!-- Colonne Liens rapides -->
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">Technology</a></li>
+          <li><a href="team.html">Our Team</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Colonne Social Media -->
+      <div class="footer-col">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/profile.php?id=100006376599535" target="_blank" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://x.com/Joku91455328" target="_blank" aria-label="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://www.instagram.com/piezo_pulse2025/" target="_blank" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.youtube.com/@nytra7845" target="_blank" aria-label="YouTube">
+            <i class="fab fa-youtube"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/zakaria-boutoumat-763a7a225/" target="_blank" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="copyright">
+      <p>&copy; 2025 Piezo Pulse. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Navigation script
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (menuToggle && navLinks) {
+      menuToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('active');
+      });
+    }
+
+    // Animation trigger
+    document.addEventListener('DOMContentLoaded', () => {
+      const members = document.querySelectorAll('.member-detail');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = 'running';
+          }
+        });
+      }, { threshold: 0.1 });
+
+      members.forEach(member => {
+        member.style.animationPlayState = 'paused';
+        observer.observe(member);
+      });
+    });
+  </script>
+
+
+  <!-- Chatbot Widget -->
+<div class="chatbot-container">
+  <div class="chatbot-icon" id="chatbotIcon">
+    <i class="fas fa-robot"></i>
+  </div>
+  <div class="chatbot-window" id="chatbotWindow">
+    <div class="chatbot-header">
+      <h3>Piezo Pulse Assistant</h3>
+      <button class="close-chatbot" id="closeChatbot">×</button>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages">
+      <div class="bot-message">Hello! I'm here to help. Ask me about our technology, team, or project.</div>
+    </div>
+    <div class="chatbot-input">
+      <input type="text" id="userInput" placeholder="Type your question...">
+      <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Chatbot Functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const chatbotIcon = document.getElementById('chatbotIcon');
+    const chatbotWindow = document.getElementById('chatbotWindow');
+    const closeChatbot = document.getElementById('closeChatbot');
+    const userInput = document.getElementById('userInput');
+    const sendMessage = document.getElementById('sendMessage');
+    const chatbotMessages = document.getElementById('chatbotMessages');
+
+    // Toggle chatbot window
+    chatbotIcon.addEventListener('click', function() {
+      chatbotWindow.style.display = chatbotWindow.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    closeChatbot.addEventListener('click', function() {
+      chatbotWindow.style.display = 'none';
+    });
+
+    // Send message function
+    function sendUserMessage() {
+      const message = userInput.value.trim();
+      if (message) {
+        // Add user message
+        const userMsg = document.createElement('div');
+        userMsg.className = 'user-message';
+        userMsg.textContent = message;
+        chatbotMessages.appendChild(userMsg);
+        
+        // Process and add bot response
+        setTimeout(() => {
+          const botResponse = getBotResponse(message);
+          const botMsg = document.createElement('div');
+          botMsg.className = 'bot-message';
+          botMsg.textContent = botResponse;
+          chatbotMessages.appendChild(botMsg);
+          chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }, 500);
+        
+        userInput.value = '';
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+      }
+    }
+
+    // Send message on button click or Enter key
+    sendMessage.addEventListener('click', sendUserMessage);
+    userInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendUserMessage();
+      }
+    });
+
+    // Simple response logic
+function getBotResponse(message) {
+  const lowerMsg = message.toLowerCase().trim();
+  
+  // Greetings
+  if (/^(hi|hello|bonjour|salut|hey|مرحبا|السلام عليكم)/.test(lowerMsg)) {
+    return "Hello! Welcome to Piezo Pulse. How can I help you today? You can ask about:\n- Our technology\n- Our team members\n- The project";
+  } 
+  // Thanks
+  else if (/(thanks|thank you|merci|شكرا)/.test(lowerMsg)) {
+    return "You're welcome! Is there anything else I can help you with?";
+  }
+  // Team members
+  else if (lowerMsg.includes('zakaria') || lowerMsg.includes('boutoumat')) {
+    return "Zakaria Boutoumat - Software Developer\n" +
+           "Expertise: IoT, Embedded Systems, Energy Optimization\n" +
+           "Social Links:\n" +
+           "- LinkedIn: https://www.linkedin.com/in/zakaria-boutoumat-763a7a225/\n" +
+           "- GitHub: https://github.com/zakariab\n" +
+           "Zakaria developed the core algorithms that optimize our piezoelectric energy conversion.";
+  }
+  else if (lowerMsg.includes('asmae') || lowerMsg.includes('ait lahcen')) {
+    return "Asmae Ait Lahcen - Hardware Specialist\n" +
+           "Expertise: Piezoelectric Materials, Circuit Design\n" +
+           "Social Links:\n" +
+           "- LinkedIn: https://www.linkedin.com/in/asmae-aitlahcen\n" +
+           "- ResearchGate: https://www.researchgate.net/profile/Asmae-Aitlahcen\n" +
+           "Asmae holds 3 patents in piezoelectric device design.";
+  }
+  else if (lowerMsg.includes('youness') || lowerMsg.includes('marzouk')) {
+    return "Youness Marzouk - UI/UX Designer\n" +
+           "Expertise: User Research, Data Visualization\n" +
+           "Portfolio: https://www.behance.net/younessmarzouk\n" +
+           "Youness creates intuitive interfaces for our monitoring systems.";
+  }
+  else if (lowerMsg.includes('rim') || lowerMsg.includes('el alaoui') || lowerMsg.includes('ismaili')) {
+    return "Rim El Alaoui Ismaili - System Integration\n" +
+           "Expertise: Cloud Architecture, API Development\n" +
+           "Social Links:\n" +
+           "- LinkedIn: https://www.linkedin.com/in/rimelalaoui\n" +
+           "Rim ensures our technology works seamlessly with city infrastructure.";
+  }
+  else if (lowerMsg.includes('imad') || lowerMsg.includes('lebsim')) {
+    return "Imad Lebsim - Energy Analyst\n" +
+           "Expertise: Data Science, Energy Forecasting\n" +
+           "Social Links:\n" +
+           "- LinkedIn: https://www.linkedin.com/in/imadlebsim\n" +
+           "Imad's algorithms optimize panel placement for maximum efficiency.";
+  }
+  else if (lowerMsg.includes('fatima') || lowerMsg.includes('osseili')) {
+    return "Fatima Osseili - Project Manager\n" +
+           "Expertise: Agile Methodology, Stakeholder Management\n" +
+           "Social Links:\n" +
+           "- LinkedIn: https://www.linkedin.com/in/fatimaosseili\n" +
+           "Fatima coordinates our deployments across multiple cities.";
+  }
+  // Technology questions
+  else if (/(technology|technologie|piezo|how it works|كيف تعمل)/.test(lowerMsg)) {
+    return "Piezo-Pulse converts vehicle movement into clean energy using piezoelectric sensors in roads. Key features:\n" +
+           "- 95% conversion efficiency\n" +
+           - "Zero emissions\n" +
+           - "Low maintenance\n" +
+           "Our technology can power street lights and IoT devices.";
+  } 
+  // Team questions
+  else if (/(team|équipe|who are you|staff|فريق)/.test(lowerMsg)) {
+    return "Our team has 6 members:\n" +
+           "1. Zakaria Boutoumat (Software)\n" +
+           "2. Asmae Ait Lahcen (Hardware)\n" +
+           "3. Youness Marzouk (Design)\n" +
+           "4. Rim El Alaoui (Integration)\n" +
+           "5. Imad Lebsim (Analysis)\n" +
+           "6. Fatima Osseili (Management)\n" +
+           "Ask about any member by name for details!";
+  }
+  // Contact questions
+  else if (/(contact|email|phone|number|whatsapp|واتساب|رقم|contactez)/.test(lowerMsg)) {
+    return "Contact options:\n" +
+           "📱 WhatsApp: +212 706-009181\n" +
+           "📧 Email: contact@piezo-pulse.com\n" +
+           "🌐 Contact page: https://piezo-pulse.com/contact\n" +
+           "📍 Address: École Polytechnique d'Agadir, Morocco";
+  }
+  // Default response
+  else {
+    return "I'm not sure I understand. You can ask about:\n" +
+           "- Specific team members (Zakaria, Asmae, etc.)\n" +
+           "- Our technology\n" +
+           "- Contact information\n" +
+           "For complex questions, please message us on WhatsApp at +212 706-009181";
+  }
+}
+    
+  });
+</script>
+
+
+</body>
+</html>

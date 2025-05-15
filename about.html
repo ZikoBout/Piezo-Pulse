@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technology | Piezo Pulse</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png"  href="logo.png">
+  <style>
+    /* ===== STYLE SPÉCIFIQUE À ABOUT ===== */
+    .about-header {
+      height: 70vh;
+      min-height: 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 2rem;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    }
+
+    .about-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 75% 30%, rgba(0,208,132,0.15) 0%, transparent 50%);
+      z-index: 1;
+    }
+
+    .about-header video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.25;
+      z-index: 0;
+    }
+
+    .about-header-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+    }
+
+    .about-header h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, #00ffcc, #00d4ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .about-header p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      max-width: 700px;
+    }
+
+    /* Sections Technologie */
+    .tech-section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tech-section:nth-child(even) {
+      background: rgba(255,255,255,0.03);
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .tech-content {
+      padding: 0 1rem;
+    }
+
+    .tech-content h2 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      margin-bottom: 1.5rem;
+      color: #00d4ff;
+    }
+
+    .tech-content p {
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.8);
+    }
+
+    .tech-image {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      transition: transform 0.4s ease;
+    }
+
+    .tech-image:hover {
+      transform: scale(1.02);
+    }
+
+    .tech-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Vidéo Explainer */
+    .video-container {
+      max-width: 900px;
+      margin: 5rem auto;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .video-container h2 {
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      margin-bottom: 2rem;
+      color: #00ffcc;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 */
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Points Forts */
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 5rem auto;
+      padding: 0 2rem;
+    }
+
+    .benefit-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-10px);
+      background: rgba(0,208,132,0.05);
+      border-color: rgba(0,208,132,0.3);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .benefit-card h3 {
+      color: #00d084;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .benefit-card p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .tech-section, .video-container, .benefits {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .tech-section:nth-child(1) { animation-delay: 0.1s; }
+    .tech-section:nth-child(2) { animation-delay: 0.3s; }
+    .video-container { animation-delay: 0.5s; }
+    .benefits { animation-delay: 0.7s; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .tech-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .about-header {
+        height: auto;
+        padding: 6rem 2rem;
+      }
+    }
+
+    /* Logo above title styling */
+.title-logo-container {
+  text-align: center;
+  margin-bottom: -3rem;
+  position: relative;
+  z-index: 3;
+}
+
+.title-logo {
+  height: 300px; /* Adjust this value to change logo size */
+  width: auto;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  transition: all 0.3s ease;
+}
+
+/* Optional hover effect */
+.title-logo:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 8px rgba(0,208,132,0.4));
+}
+
+/* Adjust header content spacing */
+.about-header-content {
+  margin-top: 0.5rem;
+}
+
+/* Nouvelles styles pour les sections ajoutées */
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  color: #00d4ff;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: #00ffcc;
+  margin: 0.5rem auto 0;
+}
+
+/* Grille Applications */
+.applications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.application-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.application-card:hover {
+  transform: translateY(-10px);
+  background: rgba(0,208,132,0.05);
+}
+
+.app-icon {
+  font-size: 2.5rem;
+  color: #00ffcc;
+  margin-bottom: 1rem;
+}
+
+/* Section Chiffres */
+.stats-section {
+  background: linear-gradient(135deg, #0a1929 0%, #0f2027 100%);
+  padding: 5rem 2rem;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-around;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 1rem;
+}
+
+.stat-value {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #00d084;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  color: rgba(255,255,255,0.8);
+}
+
+/* Témoignages */
+.testimonials-section {
+  padding: 5rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.testimonial-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.testimonial-content p {
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  position: relative;
+}
+
+.testimonial-content p::before,
+.testimonial-content p::after {
+  color: #00d084;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.testimonial-content p::before {
+  content: '"';
+  position: absolute;
+  left: -15px;
+  top: -10px;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.testimonial-author img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+  border: 2px solid #00ffcc;
+}
+  </style>
+</head>
+<body>
+  <!-- Au début du <body> dans chaque fichier HTML -->
+    <nav class="navbar" id="navbar">
+      <a href="index.html" class="navbar-brand">
+        <img src="logo.png" alt="Piezo Pulse Logo" class="navbar-logo">
+        <span class="navbar-brand-name">Piezo-Pulse</span>
+      </a>
+      
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="about.html">Technology</a>
+        <a href="team.html">Our Team</a>
+        <a href="contact.html">Contact</a>
+        <button class="nav-button" onclick="location.href='dashboard.html'">Start</button>
+      </div>
+      
+      <!-- Menu mobile -->
+      <div class="menu-toggle" id="menuToggle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18"></path>
+        </svg>
+      </div>
+    </nav>
+<!-- Juste après la navbar, ajoutez ce script -->
+<script>
+  // Effet de scroll sur la navbar
+  window.addEventListener('scroll', function() {
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+  // Pour le menu mobile (optionnel)
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  
+  if (menuToggle && navLinks) {
+    menuToggle.addEventListener('click', function() {
+      navLinks.classList.toggle('active');
+    });
+  }
+</script>
+  <!-- Header avec vidéo -->
+  <header class="about-header">
+    <video autoplay muted loop>
+      <source src="videos/tech-background.mp4" type="video/mp4">
+    </video>
+    <div class="title-logo-container">
+      <img src="logodegradermod.svg" alt="Piezo Pulse Logo" class="title-logo">
+    </div>
+
+    <div class="about-header-content">
+      <h1>Piezo Technology</h1>
+      <p>Harnessing the power of movement to create sustainable energy solutions for smart cities</p>
+    </div>
+  </header>
+
+  <!-- Section Technologie 1 -->
+  <section class="tech-section">
+    <div class="tech-grid">
+      <div class="tech-image">
+        <img src="kineticr.png" alt="Piezo technology diagram">
+      </div>
+      <div class="tech-content">
+        <h2>How It Works</h2>
+        <p>Our advanced piezoelectric sensors convert the mechanical stress from vehicle movement into usable electricity through the piezoelectric effect.</p>
+        <p>When vehicles pass over the panels, the pressure deforms crystalline materials in the sensors, generating an electrical charge.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Technologie 2 -->
+  <section class="tech-section">
+    <div class="tech-grid">
+      <div class="tech-content">
+        <h2>Smart Energy Management</h2>
+        <p>The generated energy is conditioned and stored in our proprietary energy storage systems, ready for immediate use or grid integration.</p>
+        <p>Our intelligent systems optimize energy distribution based on real-time demand and usage patterns.</p>
+      </div>
+      <div class="tech-image">
+        <img src="road.jpg" alt="Energy flow diagram">
+      </div>
+    </div>
+  </section>
+
+  <!-- Vidéo Explicative -->
+  <div class="video-container">
+    <h2>See Piezo Pulse in Action</h2>
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube.com/embed/Bgqw0c0lAe4" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- Points Forts -->
+  <div class="benefits">
+    <div class="benefit-card">
+      <h3>Renewable Energy</h3>
+      <p>100% clean energy generation with zero emissions during operation.</p>
+    </div>
+    <div class="benefit-card">
+      <h3>Urban Integration</h3>
+      <p>Seamlessly integrates with existing road infrastructure without disrupting traffic.</p>
+    </div>
+    <div class="benefit-card">
+      <h3>Low Maintenance</h3>
+      <p>Durable design with minimal moving parts ensures reliable long-term operation.</p>
+    </div>
+  </div>
+  <script>
+    // Animation des chiffres
+    function animateStats() {
+      const statValues = document.querySelectorAll('.stat-value');
+      
+      statValues.forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-count'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            clearInterval(timer);
+            current = target;
+          }
+          stat.textContent = Math.floor(current);
+        }, 16);
+      });
+    }
+    
+    // Déclenche l'animation quand la section est visible
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateStats();
+          statsObserver.unobserve(entry.target);
+        }
+      });
+    }, {threshold: 0.5});
+    
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) {
+      statsObserver.observe(statsSection);
+    }
+  </script>
+  <script>
+    // Animation au scroll
+    document.addEventListener('DOMContentLoaded', () => {
+      const sections = document.querySelectorAll('.tech-section, .video-container, .benefits');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = 'running';
+          }
+        });
+      }, { threshold: 0.1 });
+
+      sections.forEach(section => {
+        section.style.animationPlayState = 'paused';
+        observer.observe(section);
+      });
+    });
+  </script>
+
+  
+
+  <!-- Nouvelle section Applications Concrètes -->
+<section class="tech-section">
+  <h2 class="section-title">Real-World Applications</h2>
+  <div class="applications-grid">
+    <div class="application-card">
+      <div class="app-icon">
+        <i class="fas fa-traffic-light"></i>
+      </div>
+      <h3>Smart Street Lighting</h3>
+      <p>Power street lights directly from road traffic, reducing grid dependence</p>
+    </div>
+    
+    <div class="application-card">
+      <div class="app-icon">
+        <i class="fas fa-charging-station"></i>
+      </div>
+      <h3>EV Charging Stations</h3>
+      <p>Supplemental power for electric vehicle charging points</p>
+    </div>
+    
+    <div class="application-card">
+      <div class="app-icon">
+        <i class="fas fa-microchip"></i> 
+      </div>
+      <h3>IoT Sensor Networks</h3>
+      <p>Autonomous power source for smart city sensors</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section Chiffres Clés -->
+<section class="stats-section">
+  <div class="stats-container">
+    <div class="stat-item">
+      <div class="stat-value" data-count="250">0</div>
+      <div class="stat-label">Watts per Vehicle</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value" data-count="24">0</div>
+      <div class="stat-label">Hours Operation</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value" data-count="85">0</div>
+      <div class="stat-label">Efficiency Rate</div>
+    </div>
+  </div>
+</section>
+
+<!-- Section Témoignages -->
+<section class="testimonials-section">
+  <h2 class="section-title">Transforming Energy, Inspiring Minds</h2>
+  <div class="testimonial-card">
+    <div class="testimonial-content">
+      <p>"Energy can neither be created nor destroyed, it can only be changed from one form to another."</p>
+    </div>
+    <div class="testimonial-author">
+      <img src="téléchargement.jpeg" alt="Dr. Sarah Johnson">
+      <div>
+        <h4>Albert Einstein</h4>
+        <p>Theoretical Physicist, Nobel Laureate</p>
+      </div>
+    </div>
+  </div>
+</section>
+    <!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="footer-container">
+    <!-- Colonne Logo + Adresse -->
+    <div class="footer-col">
+      <img src="logo.png" alt="Piezo Pulse" class="footer-logo">
+      <img src="Untitled design (4).png" alt="École Polytechnique d'Agadir" class="school-logo">
+      <address>
+        École Polytechnique d'Agadir<br>
+        Quartier Tilila, Agadir 80000<br>
+        Maroc
+      </address>
+    </div>
+
+    <!-- Colonne Liens rapides -->
+    <div class="footer-col">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">Technology</a></li>
+        <li><a href="#team">Our Team</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Colonne Social Media -->
+    <div class="footer-col">
+      <h3>Follow Us</h3>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/profile.php?id=100006376599535" target="_blank" aria-label="Facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="https://x.com/Joku91455328" target="_blank" aria-label="Twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+        <a href="https://www.instagram.com/piezo_pulse2025/" target="_blank" aria-label="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.youtube.com/@nytra7845" target="_blank" aria-label="YouTube">
+          <i class="fab fa-youtube"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/zakaria-boutoumat-763a7a225/" target="_blank" aria-label="LinkedIn">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="copyright">
+    <p>&copy; 2025 Piezo Pulse. Tous droits réservés.</p>
+  </div>
+</footer>
+
+  <!-- Chatbot Widget -->
+<div class="chatbot-container">
+  <div class="chatbot-icon" id="chatbotIcon">
+    <i class="fas fa-robot"></i>
+  </div>
+  <div class="chatbot-window" id="chatbotWindow">
+    <div class="chatbot-header">
+      <h3>Piezo Pulse Assistant</h3>
+      <button class="close-chatbot" id="closeChatbot">×</button>
+    </div>
+    <div class="chatbot-messages" id="chatbotMessages">
+      <div class="bot-message">Hello! I'm here to help. Ask me about our technology, team, or project.</div>
+    </div>
+    <div class="chatbot-input">
+      <input type="text" id="userInput" placeholder="Type your question...">
+      <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Chatbot Functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const chatbotIcon = document.getElementById('chatbotIcon');
+    const chatbotWindow = document.getElementById('chatbotWindow');
+    const closeChatbot = document.getElementById('closeChatbot');
+    const userInput = document.getElementById('userInput');
+    const sendMessage = document.getElementById('sendMessage');
+    const chatbotMessages = document.getElementById('chatbotMessages');
+
+    // Toggle chatbot window
+    chatbotIcon.addEventListener('click', function() {
+      chatbotWindow.style.display = chatbotWindow.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    closeChatbot.addEventListener('click', function() {
+      chatbotWindow.style.display = 'none';
+    });
+
+    // Send message function
+    function sendUserMessage() {
+      const message = userInput.value.trim();
+      if (message) {
+        // Add user message
+        const userMsg = document.createElement('div');
+        userMsg.className = 'user-message';
+        userMsg.textContent = message;
+        chatbotMessages.appendChild(userMsg);
+        
+        // Process and add bot response
+        setTimeout(() => {
+          const botResponse = getBotResponse(message);
+          const botMsg = document.createElement('div');
+          botMsg.className = 'bot-message';
+          botMsg.textContent = botResponse;
+          chatbotMessages.appendChild(botMsg);
+          chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }, 500);
+        
+        userInput.value = '';
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+      }
+    }
+
+    // Send message on button click or Enter key
+    sendMessage.addEventListener('click', sendUserMessage);
+    userInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendUserMessage();
+      }
+    });
+
+    // Simple response logic
+function getBotResponse(message) {
+  const lowerMsg = message.toLowerCase().trim();
+  
+  // Greetings
+  if (/^(hi|hello|bonjour|salut|hey|مرحبا|السلام عليكم)/.test(lowerMsg)) {
+    return "Hello! Welcome to Piezo Pulse. How can I help you today? You can ask about:\n- Our technology\n- Our team members\n- The project";
+  } 
+  // Thanks
+  else if (/(thanks|thank you|merci|شكرا)/.test(lowerMsg)) {
+    return "You're welcome! Is there anything else I can help you with?";
+  }
+  // Team members
+  else if (lowerMsg.includes('zakaria') || lowerMsg.includes('boutoumat')) {
+    return "Zakaria Boutoumat - Software Developer\n" +
+           "Expertise: IoT, Embedded Systems, Energy Optimization\n" +
+           "Social Links:\n" +
+           "- LinkedIn: https://www.linkedin.com/in/zakaria-boutoumat-763a7a225/\n" +
+           "- GitHub: https://github.com/zakariab\n" +
+           "Zakaria developed the core algorithms that optimize our piezoelectric energy conversion.";
+  }
+  else if (lowerMsg.includes('asmae') || lowerMsg.includes('ait lahcen')) {
+    return "Asmae Ait Lahcen - Hardware Specialist\n" +
+           "Expertise: Piezoelectric Materials, Circuit Design\n" +
+           "Social Links:\n" +
+           "- LinkedIn: https://www.linkedin.com/in/asmae-aitlahcen\n" +
+           "- ResearchGate: https://www.researchgate.net/profile/Asmae-Aitlahcen\n" +
+           "Asmae holds 3 patents in piezoelectric device design.";
+  }
+  else if (lowerMsg.includes('youness') || lowerMsg.includes('marzouk')) {
+    return "Youness Marzouk - UI/UX Designer\n" +
+           "Expertise: User Research, Data Visualization\n" +
+           "Portfolio: https://www.behance.net/younessmarzouk\n" +
+           "Youness creates intuitive interfaces for our monitoring systems.";
+  }
+  else if (lowerMsg.includes('rim') || lowerMsg.includes('el alaoui') || lowerMsg.includes('ismaili')) {
+    return "Rim El Alaoui Ismaili - System Integration\n" +
+           "Expertise: Cloud Architecture, API Development\n" +
+           "Social Links:\n" +
+           "- LinkedIn: https://www.linkedin.com/in/rimelalaoui\n" +
+           "Rim ensures our technology works seamlessly with city infrastructure.";
+  }
+  else if (lowerMsg.includes('imad') || lowerMsg.includes('lebsim')) {
+    return "Imad Lebsim - Energy Analyst\n" +
+           "Expertise: Data Science, Energy Forecasting\n" +
+           "Social Links:\n" +
+           "- LinkedIn: https://www.linkedin.com/in/imadlebsim\n" +
+           "Imad's algorithms optimize panel placement for maximum efficiency.";
+  }
+  else if (lowerMsg.includes('fatima') || lowerMsg.includes('osseili')) {
+    return "Fatima Osseili - Project Manager\n" +
+           "Expertise: Agile Methodology, Stakeholder Management\n" +
+           "Social Links:\n" +
+           "- LinkedIn: https://www.linkedin.com/in/fatimaosseili\n" +
+           "Fatima coordinates our deployments across multiple cities.";
+  }
+  // Technology questions
+  else if (/(technology|technologie|piezo|how it works|كيف تعمل)/.test(lowerMsg)) {
+    return "Piezo-Pulse converts vehicle movement into clean energy using piezoelectric sensors in roads. Key features:\n" +
+           "- 95% conversion efficiency\n" +
+           - "Zero emissions\n" +
+           - "Low maintenance\n" +
+           "Our technology can power street lights and IoT devices.";
+  } 
+  // Team questions
+  else if (/(team|équipe|who are you|staff|فريق)/.test(lowerMsg)) {
+    return "Our team has 6 members:\n" +
+           "1. Zakaria Boutoumat (Software)\n" +
+           "2. Asmae Ait Lahcen (Hardware)\n" +
+           "3. Youness Marzouk (Design)\n" +
+           "4. Rim El Alaoui (Integration)\n" +
+           "5. Imad Lebsim (Analysis)\n" +
+           "6. Fatima Osseili (Management)\n" +
+           "Ask about any member by name for details!";
+  }
+  // Contact questions
+  else if (/(contact|email|phone|number|whatsapp|واتساب|رقم|contactez)/.test(lowerMsg)) {
+    return "Contact options:\n" +
+           "📱 WhatsApp: +212 706-009181\n" +
+           "📧 Email: contact@piezo-pulse.com\n" +
+           "🌐 Contact page: https://piezo-pulse.com/contact\n" +
+           "📍 Address: École Polytechnique d'Agadir, Morocco";
+  }
+  // Default response
+  else {
+    return "I'm not sure I understand. You can ask about:\n" +
+           "- Specific team members (Zakaria, Asmae, etc.)\n" +
+           "- Our technology\n" +
+           "- Contact information\n" +
+           "For complex questions, please message us on WhatsApp at +212 706-009181";
+  }
+}
+    
+  });
+</script>
+
+
+</body>
+</html>
